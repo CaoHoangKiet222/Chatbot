@@ -1,15 +1,18 @@
+import os
 import json
 import numpy as np
 from torch.utils.data import DataLoader
 import torch
 from nltk_utils import bag_of_words, tokenize, stem, cv
 from chat_dataset import ChatDataset
-from model import NeuralNet
+from neuralnet_model import NeuralNet
 import torch.nn as nn
 DEVICE = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-FILE = "data.pth"
+FILE = 'data.pth'
+JSON = os.path.abspath(os.path.join(os.path.dirname(
+    __file__), '..', 'json', 'intents.json'))
 
-with open('intents.json', 'r') as f:
+with open(JSON, 'r') as f:
     jsonData = json.load(f)
 
 tags = []
@@ -72,12 +75,12 @@ for epoch in range(epochs):
 print(f'final loss: {loss.item():.4f}')
 
 data = {
-    "model_state": model.state_dict(),
-    "input_size": input_size,
-    "hidden_size": hidden_size,
-    "output_size": output_size,
-    "intents": jsonData["intents"],
-    "tags": tags,
+    'model_state': model.state_dict(),
+    'input_size': input_size,
+    'hidden_size': hidden_size,
+    'output_size': output_size,
+    'intents': jsonData['intents'],
+    'tags': tags,
 }
 
 torch.save(data, FILE)
