@@ -1,7 +1,10 @@
 from sklearn.feature_extraction.text import CountVectorizer
 from nltk.stem.porter import PorterStemmer
 import nltk
-nltk.download('punkt')
+try:
+    nltk.data.find('tokenizers/punkt')
+except LookupError:
+    nltk.download('punkt')
 
 ps = PorterStemmer()
 cv = CountVectorizer()

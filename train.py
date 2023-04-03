@@ -6,7 +6,7 @@ from nltk_utils import bag_of_words, tokenize, stem, cv
 from chat_dataset import ChatDataset
 from model import NeuralNet
 import torch.nn as nn
-DEVICE = torch.device('cuda' if torch.cuda.is_available else 'cpu')
+DEVICE = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 FILE = "data.pth"
 
 with open('intents.json', 'r') as f:
